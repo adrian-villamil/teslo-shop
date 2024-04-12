@@ -1,5 +1,7 @@
-import { Title } from "@/components";
-import { titleFont } from "@/config/fonts";
+import { ProductGrid, Title } from "@/components";
+import { initialData } from "@/seed/seed";
+
+const products = initialData.products;
 
 export default function HomePage() {
   return (
@@ -9,6 +11,7 @@ export default function HomePage() {
         subtitle="Todos los productos"
         className="mb-2"
       />
+      <ProductGrid products={products} />
     </>
   );
 }
