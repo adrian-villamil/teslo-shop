@@ -15,7 +15,7 @@ const menuLinks = [
     title: 'Mujeres',
   },
   {
-    path: '/category/kids',
+    path: '/category/kid',
     title: 'Niños',
   },
 ];
