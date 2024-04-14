@@ -5,3 +5,4 @@ export { SideBar } from './ui/sidebar/SideBar';
 export { SizeSelector } from './product/size-selector/SizeSelector';
 export { Title } from './ui/title/Title';
 export { TopMenu } from './ui/top-menu/TopMenu';
+export { QuantitySelector } from './product/quantity-selector/QuantitySelector';
