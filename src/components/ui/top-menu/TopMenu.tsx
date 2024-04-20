@@ -7,15 +7,15 @@ import { useUIStore } from "@/store";
 
 const menuLinks = [
   {
-    path: '/category/men',
+    path: '/gender/men',
     title: 'Hombres',
   },
   {
-    path: '/category/women',
+    path: '/gender/women',
     title: 'Mujeres',
   },
   {
-    path: '/category/kid',
+    path: '/gender/kid',
     title: 'Niños',
   },
 ];
