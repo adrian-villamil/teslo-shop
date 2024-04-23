@@ -8,5 +8,6 @@ export { ProductSlideshow } from './product/slideshow/ProductSlideshow';
 export { QuantitySelector } from './product/quantity-selector/QuantitySelector';
 export { SideBar } from './ui/sidebar/SideBar';
 export { SizeSelector } from './product/size-selector/SizeSelector';
+export { StockLabel } from './product/stock-label/StockLabel';
 export { Title } from './ui/title/Title';
 export { TopMenu } from './ui/top-menu/TopMenu';
