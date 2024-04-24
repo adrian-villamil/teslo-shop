@@ -1,5 +1,6 @@
 export const revalidate = 604800; // 7 días
 
+import type { Metadata } from 'next';
 import { notFound } from "next/navigation";
 import { titleFont } from "@/config/fonts";
 import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector, StockLabel } from "@/components";
@@ -7,6 +8,21 @@ import { getProductBySlug } from "@/actions";
 
 interface Props {
   params: { slug: string };
+}
+
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = params;
+  const product = await getProductBySlug(slug);
+  return { 
+    title: product?.title ?? 'Producto no encontrado',
+    description: product?.description ?? '',
+    openGraph: {
+      title: product?.title ?? 'Producto no encontrado',
+      description: product?.description ?? '',
+      images: [`/products/${product?.images[1]}`]
+    }
+  };
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -27,7 +43,7 @@ export default async function ProductPage({ params }: Props) {
           images={product.images}
           className="block md:hidden"
         />
-        
+
         {/* Desktop Slideshow */}
         <ProductSlideshow
           title={product.title}

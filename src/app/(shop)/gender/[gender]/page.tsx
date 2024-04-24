@@ -1,5 +1,6 @@
 export const revalidate = 60; // 60 segundos
 
+import type { Metadata } from 'next';
 import { getPaginatedProductsWithImages } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
 import { Gender } from "@prisma/client";
@@ -8,6 +9,18 @@ import { redirect } from "next/navigation";
 interface Props {
   params: { gender: string };
   searchParams: { page?: string };
+}
+
+const labels: Record<string, string> = {
+  men: 'hombres',
+  women: 'mujeres',
+  kid: 'niños',
+  unisex: 'todos',
+};
+
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  const { gender } = params;
+  return { title: `Artículos de ${labels[gender]}` };
 }
 
 export default async function CategoryPage({ params, searchParams }: Props) {
@@ -19,13 +32,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   if (products.length === 0) {
     redirect(`/gender/${gender}`);
   }
-
-  const labels: Record<string, string> = {
-    men: 'hombres',
-    women: 'mujeres',
-    kid: 'niños',
-    unisex: 'todos',
-  };
 
   // if (id === 'kid') {
   //   notFound();
