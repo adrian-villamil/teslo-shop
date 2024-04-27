@@ -15,7 +15,6 @@ export default function CartPage() {
             <span className="text-xl">Agregar más items</span>
             <Link href={'/'} className="underline mb-5">Continúa comprando</Link>
 
-
             {/* Items */}
             <ProducstInCart />
           </div>
