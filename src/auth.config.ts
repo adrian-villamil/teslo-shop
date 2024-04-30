@@ -14,8 +14,10 @@ export const authConfig: NextAuthConfig = {
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
+        console.log(parsedCredentials.success);
         if (!parsedCredentials.success) return null;
         const { email, password } = parsedCredentials.data;
+        console.log('Auth.config.ts');
         console.log({ email, password });
         return null;
       },
