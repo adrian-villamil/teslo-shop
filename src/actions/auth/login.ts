@@ -13,15 +13,14 @@ export async function authenticate(
     console.log({ formData: Object.fromEntries(formData)});
     await signIn('credentials', formData);
   } catch (error) {
-    // if (error instanceof AuthError) {
-    //   switch (error.type) {
-    //     case 'CredentialsSignin':
-    //       return 'Invalid credentials.';
-    //     default:
-    //       return 'Something went wrong.';
-    //   }
-    // }
-    // throw error;
-    return 'CredentialsSignin';
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Credenciales inválidas.';
+        default:
+          return 'Algo no salió como se esperaba.';
+      }
+    }
+    throw error;
   }
 }
