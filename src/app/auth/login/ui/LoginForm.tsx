@@ -8,7 +8,6 @@ import clsx from "clsx";
 
 export const LoginForm = () => {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-  console.log({ errorMessage });
 
   return (
     <form action={dispatch} className="flex flex-col">
