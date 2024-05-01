@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import clsx from "clsx";
-import { registerUser } from "@/actions";
+import { login, registerUser } from "@/actions";
 
 interface FormInputs {
   name: string;
@@ -28,7 +28,8 @@ export const RegisterForm = () => {
       return;
     }
 
-    console.log({ resp });
+    await login(email.toLowerCase(), password);
+    window.location.replace('/');
   };
 
   return (
