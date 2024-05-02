@@ -1,14 +1,16 @@
-import { initialData } from "./seed";
 import prisma from '../lib/prisma';
+import { initialData } from "./seed";
+import { countries } from "./seed-countries";
 
 async function main() {
   // Borrar registros previos
   // await Promise.all([
+  // ]);
   await prisma.user.deleteMany();
+  await prisma.country.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
-  // ]);
 
   const { categories, products, users } = initialData;
 
@@ -17,6 +19,11 @@ async function main() {
     data: users,
   });
   
+  // Países
+  await prisma.country.createMany({
+    data: countries,
+  })
+
   // Categorias
   const categoriesData = categories.map((name) => ({ name }));
 
@@ -51,7 +58,6 @@ async function main() {
       data: imagesData,
     });
   });
-
 
   console.log('Seed ejecutado correctamente');
 }
