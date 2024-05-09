@@ -1,4 +1,5 @@
 export { authenticate, login } from './auth/login';
+export { deleteUserAddress } from './address/delete-user-address';
 export { getCountries } from './country/get-countries';
 export { getPaginatedProductsWithImages } from './products/product-pagination';
 export { getProductBySlug } from './products/get-product-by-slug';
