@@ -2,6 +2,7 @@ import { Title } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import { ProducstInCart } from "./ui/ProducstInCart";
+import { PlaceOrder } from "./ui/PlaceOrder";
 
 export default function CheckoutPage() {
   return (
@@ -19,51 +20,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* Checkout - Resumen de orden */}
-          <div className="bg-white rounded-xl shadow-xl p-7">
-            <h2 className="text-2xl font-bold mb-2">Dirección de entrega</h2>
-            <div className="mb-10">
-              <p className="text-xl">Adrian Villamil</p>
-              <p>Av. Siempre viva 123</p>
-              <p>Col. Centro</p>
-              <p>Alcaldía Cuauhtémoc</p>
-              <p>Ciudad de México</p>
-              <p>CP 123123</p>
-              <p>123.123.123</p>
-            </div>
-
-            {/* Divider */}
-            <div className="w-full h-0.5 rounded bg-gray-200 mb-10" />
-
-            <h2 className="text-2xl mb-2">Resumen de orden</h2>
-            <div className="grid grid-cols-2">
-              <span>No. Products</span>
-              <span className="text-right">3 artículos</span>
-
-              <span>Subtotal</span>
-              <span className="text-right">$ 100</span>
-
-              <span>Impuestos (15%)</span>
-              <span className="text-right">$ 100</span>
-
-              <span className="mt-5 text-2xl">Total:</span>
-              <span className="mt-5 text-2xl text-right">$ 100</span>
-            </div>
-
-            <div className="mt-5 mb-2 w-full">
-              <p className="mb-5">
-                {/* Disclaimer */}
-                <span className="text-xs">
-                  Al hacer clic en {'"Colocar orden"'}, aceptas nuestros <a href="#" className="underline">términos y condiciones</a>
-                  {' y '} 
-                  <a href="#" className="underline">política de privacidad</a>
-                </span>
-              </p>
-
-              <Link href={'/orders/123'} className="flex btn-primary justify-center">
-                Colocar orden
-              </Link>
-            </div>
-          </div>
+          <PlaceOrder />
         </div>
       </div>
     </div>
