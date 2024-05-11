@@ -1,15 +1,16 @@
 'use client';
 
+import { useEffect, useState } from "react";
+import clsx from "clsx";
+import { placeOrder } from "@/actions";
 import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from "@/utils";
-import clsx from "clsx";
-import { useEffect, useState } from "react";
 
 export const PlaceOrder = () => {
   const [loaded, setLoaded] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
-  const address = useAddressStore(state => state.address);
   const { itemsInCart, subTotal, tax, total } = useCartStore(state => state.getSummaryInformation());
+  const address = useAddressStore(state => state.address);
   const cart = useCartStore(state => state.cart);
 
   useEffect(() => {
@@ -27,6 +28,8 @@ export const PlaceOrder = () => {
     console.log({ address, productsToOrder });
 
     // Todo: Server Action
+    const res = await placeOrder(productsToOrder,address);
+    console.log(res);
     
     setIsPlacingOrder(false);
   };
