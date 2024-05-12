@@ -5,13 +5,17 @@ import clsx from "clsx";
 import { placeOrder } from "@/actions";
 import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from "@/utils";
+import { useRouter } from "next/navigation";
 
 export const PlaceOrder = () => {
+  const router = useRouter();
   const [loaded, setLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const { itemsInCart, subTotal, tax, total } = useCartStore(state => state.getSummaryInformation());
   const address = useAddressStore(state => state.address);
   const cart = useCartStore(state => state.cart);
+  const clearCart = useCartStore(state => state.clearCart);
 
   useEffect(() => {
     setLoaded(true);
@@ -25,13 +29,18 @@ export const PlaceOrder = () => {
       quantity: product.quantity,
       size: product.size,
     }))
-    console.log({ address, productsToOrder });
 
-    // Todo: Server Action
-    const res = await placeOrder(productsToOrder, address);
-    console.log(res);
+    // Server Action
+    const response = await placeOrder(productsToOrder, address);
+    if (!response.ok) {
+      setIsPlacingOrder(false);
+      setErrorMessage(response.message);
+      return;
+    }
 
-    setIsPlacingOrder(false);
+    // Todo salió bien!
+    clearCart();
+    router.replace('/orders/' + response.order?.id);
   };
 
   if (!loaded) {
@@ -82,7 +91,7 @@ export const PlaceOrder = () => {
           </span>
         </p>
 
-        {/* <p className="text-red-500">Error de creación</p> */}
+        <p className="text-red-500">{errorMessage}</p>
 
         <button
           // href={'/orders/123'}
