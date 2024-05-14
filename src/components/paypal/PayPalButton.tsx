@@ -2,13 +2,14 @@
 
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js"
 import { CreateOrderData, CreateOrderActions } from "@paypal/paypal-js";
+import { setTransactionId } from "@/actions";
 
 interface Props {
   orderId: string;
   amount: number;
 }
 
-export const PayPalButton = ({orderId, amount}:Props) => {
+export const PayPalButton = ({ orderId, amount }: Props) => {
   const [{ isPending }] = usePayPalScriptReducer();
 
   const roundedAmount = Math.round(amount * 100) / 100;
@@ -35,9 +36,15 @@ export const PayPalButton = ({orderId, amount}:Props) => {
         }
       ]
     });
-    
-    console.log({transactionId});
-    
+
+    // Todo: guardar el ID en la orden en la base de datos
+    // setTransactionId
+    const { ok } = await setTransactionId(orderId, transactionId);
+
+    if (!ok) {
+      throw new Error('No se pudo actualizar la orden');
+    }
+
     return transactionId;
   };
 
