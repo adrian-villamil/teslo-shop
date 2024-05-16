@@ -1,4 +1,5 @@
 export { Footer } from './ui/footer/Footer';
+export { OrderStatus } from './orders/OrderStatus';
 export { PageNotFound } from './ui/not-found/PageNotFound';
 export { Pagination } from './ui/pagination/Pagination';
 export { PayPalButton } from './paypal/PayPalButton';
