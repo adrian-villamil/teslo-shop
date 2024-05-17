@@ -1,10 +1,11 @@
 "use client";
 
-import type { Category, Gender, Product } from "@/interfaces";
+import type { Category, Gender, Product, ProductImage } from "@/interfaces";
+import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface Props {
-  product: Product;
+  product: Product & { ProductImage?: ProductImage[] };
   categories: Category[];
 }
 
@@ -40,7 +41,7 @@ export const ProductForm = ({ product, categories }: Props) => {
   });
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    console.log({data});
+    console.log({ data });
 
 
   };
@@ -129,6 +130,27 @@ export const ProductForm = ({ product, categories }: Props) => {
               className="p-2 border rounded-md bg-gray-200"
               accept="image/png, image/jpeg"
             />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {product.ProductImage?.map(image => (
+              <div key={image.id}>
+                <Image
+                  src={`/products/${image.url}`}
+                  alt={product.title ?? ''}
+                  width={300}
+                  height={300}
+                  className="rounded-t shadow-md"
+                />
+                <button
+                  type="button"
+                  className="btn-danger w-full rounded-b-xl"
+                  onClick={() => console.log(image.id, image.url)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
