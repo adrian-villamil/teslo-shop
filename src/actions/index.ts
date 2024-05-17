@@ -3,6 +3,7 @@ export { deleteUserAddress } from './address/delete-user-address';
 export { getCountries } from './country/get-countries';
 export { getOrderById } from './order/get-order-by-id';
 export { getOrdersByUser } from './order/get-orders-by-user';
+export { getPaginatedOrders } from './order/get-paginated-orders';
 export { getPaginatedProductsWithImages } from './products/product-pagination';
 export { getProductBySlug } from './products/get-product-by-slug';
 export { getStockBySlug } from './products/get-stock-by-slug';
