@@ -5,6 +5,7 @@ export { getOrderById } from './order/get-order-by-id';
 export { getOrdersByUser } from './order/get-orders-by-user';
 export { getPaginatedOrders } from './order/get-paginated-orders';
 export { getPaginatedProductsWithImages } from './products/product-pagination';
+export { getPaginatedUsers } from './user/get-paginated-users';
 export { getProductBySlug } from './products/get-product-by-slug';
 export { getStockBySlug } from './products/get-stock-by-slug';
 export { getUserAddress } from './address/get-user-address';
