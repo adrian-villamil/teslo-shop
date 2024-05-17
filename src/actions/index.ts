@@ -1,4 +1,5 @@
 export { authenticate, login } from './auth/login';
+export { changeUserRole } from './user/change-user-role';
 export { deleteUserAddress } from './address/delete-user-address';
 export { getCountries } from './country/get-countries';
 export { getOrderById } from './order/get-order-by-id';
