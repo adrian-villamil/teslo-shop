@@ -1,10 +1,11 @@
 "use client";
 
-import { createUpdateProduct } from "@/actions";
-import type { Category, Gender, Product, ProductImage } from "@/interfaces";
-import clsx from "clsx";
 import Image from "next/image";
+import clsx from "clsx";
 import { SubmitHandler, useForm } from "react-hook-form";
+import type { Category, Gender, Product, ProductImage } from "@/interfaces";
+import { createUpdateProduct } from "@/actions";
+import { useRouter } from "next/navigation";
 
 interface Props {
   product: Partial<Product> & { ProductImage?: ProductImage[] };
@@ -28,6 +29,7 @@ interface FormInputs {
 }
 
 export const ProductForm = ({ product, categories }: Props) => {
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -61,7 +63,7 @@ export const ProductForm = ({ product, categories }: Props) => {
     if (product.id) {
       formData.append('id', product.id ?? '');
     }
-    
+
     formData.append('title', productToSave.title);
     formData.append('slug', productToSave.slug);
     formData.append('description', productToSave.description);
@@ -72,9 +74,14 @@ export const ProductForm = ({ product, categories }: Props) => {
     formData.append('categoryId', productToSave.categoryId);
     formData.append('gender', productToSave.gender);
 
-    const { ok } = await createUpdateProduct(formData);
+    const { ok, product: updatedProduct } = await createUpdateProduct(formData);
 
-    console.log(ok);
+    if (!ok) {
+      alert('Producto no se pudo actualizar');
+      return;
+    }
+
+    router.replace(`/admin/product/${updatedProduct?.slug}`);
   };
 
   return (
