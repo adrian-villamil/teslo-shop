@@ -29,8 +29,8 @@ export const createUpdateProduct = async (formData: FormData) => {
   const product = productParsed.data;
   product.slug = product.slug.toLowerCase().replace(/ /g, '-').trim();
 
-  const {id, ...rest} = product;
-  
+  const { id, ...rest } = product;
+
   const prismaTx = await prisma.$transaction(async () => {
     let product: Product;
     const tagsArray = rest.tags.split(',').map(tag => tag.trim().toLowerCase());
@@ -38,7 +38,7 @@ export const createUpdateProduct = async (formData: FormData) => {
     if (id) {
       // Actualizar
       product = await prisma.product.update({
-        where: {id},
+        where: { id },
         data: {
           ...rest,
           sizes: {
@@ -50,15 +50,28 @@ export const createUpdateProduct = async (formData: FormData) => {
         }
       });
 
-      console.log({updatedProduct: product});
+      console.log({ updatedProduct: product });
 
     } else {
       // Crear
+      product = await prisma.product.create({
+        data: {
+          ...rest,
+          sizes: {
+            set: rest.sizes as Size[],
+          },
+          tags: {
+            set: tagsArray,
+          }
+        }
+      });
     }
 
-    
-    return {
+    console.log({product});
 
+
+    return {
+      product,
     };
   });
 

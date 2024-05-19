@@ -25,7 +25,7 @@ export interface CartProduct {
 export interface ProductImage {
   id: number;
   url: string;
-  productId?: string;
+  productId: string;
 }
 
 export type Gender = 'men'|'women'|'kid'|'unisex';
