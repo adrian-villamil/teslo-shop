@@ -1,7 +1,8 @@
 'use server';
 
 import { z } from 'zod';
-import { Gender } from '@prisma/client';
+import { Gender, Product, Size } from '@prisma/client';
+import prisma from '@/lib/prisma';
 
 const productSchema = z.object({
   id: z.string().uuid().optional().nullable(),
@@ -25,7 +26,43 @@ export const createUpdateProduct = async (formData: FormData) => {
     return { ok: false };
   }
 
-  console.log(productParsed.data);
+  const product = productParsed.data;
+  product.slug = product.slug.toLowerCase().replace(/ /g, '-').trim();
+
+  const {id, ...rest} = product;
+  
+  const prismaTx = await prisma.$transaction(async () => {
+    let product: Product;
+    const tagsArray = rest.tags.split(',').map(tag => tag.trim().toLowerCase());
+
+    if (id) {
+      // Actualizar
+      product = await prisma.product.update({
+        where: {id},
+        data: {
+          ...rest,
+          sizes: {
+            set: rest.sizes as Size[],
+          },
+          tags: {
+            set: tagsArray,
+          },
+        }
+      });
+
+      console.log({updatedProduct: product});
+
+    } else {
+      // Crear
+    }
+
+    
+    return {
+
+    };
+  });
+
+  // Todo: RevalidatePaths
 
   return {
     ok: true,
