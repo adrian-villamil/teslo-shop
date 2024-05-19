@@ -5,6 +5,7 @@ export { Pagination } from './ui/pagination/Pagination';
 export { PayPalButton } from './paypal/PayPalButton';
 export { ProductGrid } from './products/product-grid/ProductGrid';
 export { ProductGridItem } from './products/product-grid/ProductGridItem';
+export { ProductImage } from './product/product-image/ProductImage';
 export { ProductMobileSlideshow } from './product/slideshow/ProductMobileSlideshow';
 export { ProductSlideshow } from './product/slideshow/ProductSlideshow';
 export { Providers } from './provider/Providers';
