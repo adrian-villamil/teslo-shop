@@ -96,7 +96,7 @@ export const createUpdateProduct = async (formData: FormData) => {
     // Todo: RevalidatePaths
     revalidatePath('/admin/products');
     revalidatePath(`/admin/product/${product.slug}`);
-    revalidatePath(`/products`);
+    revalidatePath(`/`);
     revalidatePath(`/product/${product.slug}`);
 
     return {

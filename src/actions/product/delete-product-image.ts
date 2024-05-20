@@ -31,7 +31,7 @@ export const deleteProductImage = async (imageId: number, imageUrl: string) => {
     // Revalidar los paths
     revalidatePath(`/admin/products`);
     revalidatePath(`/admin/product/${deletedImage.product.slug}`);
-    revalidatePath(`/products`);
+    revalidatePath(`/`);
     revalidatePath(`/product/${deletedImage.product.slug}`);
 
   } catch (error) {
