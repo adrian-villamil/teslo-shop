@@ -3,12 +3,13 @@
 import Image from "next/image";
 import clsx from "clsx";
 import { SubmitHandler, useForm } from "react-hook-form";
-import type { Category, Gender, Product, ProductImage } from "@/interfaces";
+import type { Category, Gender, Product, ProductImage as ProductWidthImage } from "@/interfaces";
 import { createUpdateProduct } from "@/actions";
 import { useRouter } from "next/navigation";
+import { ProductImage } from "@/components";
 
 interface Props {
-  product: Partial<Product> & { ProductImage?: ProductImage[] };
+  product: Partial<Product> & { ProductImage?: ProductWidthImage[] };
   categories: Category[];
 }
 
@@ -191,12 +192,13 @@ export const ProductForm = ({ product, categories }: Props) => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {product.ProductImage?.map(image => (
               <div key={image.id}>
-                <Image
-                  src={`/products/${image.url}`}
+                <ProductImage
+                  src={image.url}
                   alt={product.title ?? ''}
                   width={300}
                   height={300}
                   className="rounded-t shadow-md"
+                  priority
                 />
                 <button
                   type="button"
