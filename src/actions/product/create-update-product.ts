@@ -5,7 +5,6 @@ import { z } from 'zod';
 import prisma from '@/lib/prisma';
 import { Gender, Product, Size } from '@prisma/client';
 import { v2 as cloudinary } from 'cloudinary';
-
 cloudinary.config(process.env.CLOUDINARY_URL ?? '');
 
 const productSchema = z.object({
@@ -35,13 +34,13 @@ export const createUpdateProduct = async (formData: FormData) => {
 
   const { id, ...rest } = product;
   try {
-    const prismaTx = await prisma.$transaction(async () => {
+    const prismaTx = await prisma.$transaction(async (tx) => {
       let product: Product;
       const tagsArray = rest.tags.split(',').map(tag => tag.trim().toLowerCase());
 
       if (id) {
         // Actualizar
-        product = await prisma.product.update({
+        product = await tx.product.update({
           where: { id },
           data: {
             ...rest,
@@ -58,7 +57,7 @@ export const createUpdateProduct = async (formData: FormData) => {
 
       } else {
         // Crear
-        product = await prisma.product.create({
+        product = await tx.product.create({
           data: {
             ...rest,
             sizes: {
@@ -81,7 +80,7 @@ export const createUpdateProduct = async (formData: FormData) => {
           throw new Error('No se pudo cargar las imágenes, rollingback');
         }
 
-        await prisma.productImage.createMany({
+        await tx.productImage.createMany({
           data: images.map(image => ({
             url: image!,
             productId: product.id,
@@ -97,7 +96,8 @@ export const createUpdateProduct = async (formData: FormData) => {
     // Todo: RevalidatePaths
     revalidatePath('/admin/products');
     revalidatePath(`/admin/product/${product.slug}`);
-    revalidatePath(`/products/${product.slug}`);
+    revalidatePath(`/products`);
+    revalidatePath(`/product/${product.slug}`);
 
     return {
       ok: true,

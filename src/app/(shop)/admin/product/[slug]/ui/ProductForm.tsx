@@ -4,7 +4,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import { SubmitHandler, useForm } from "react-hook-form";
 import type { Category, Gender, Product, ProductImage as ProductWidthImage } from "@/interfaces";
-import { createUpdateProduct } from "@/actions";
+import { createUpdateProduct, deleteProductImage } from "@/actions";
 import { useRouter } from "next/navigation";
 import { ProductImage } from "@/components";
 
@@ -197,13 +197,13 @@ export const ProductForm = ({ product, categories }: Props) => {
                   alt={product.title ?? ''}
                   width={300}
                   height={300}
-                  className="rounded-t shadow-md"
+                  className="rounded-t shadow-md w-full"
                   priority
                 />
                 <button
                   type="button"
                   className="btn-danger w-full rounded-b-xl"
-                  onClick={() => console.log(image.id, image.url)}
+                  onClick={() => deleteProductImage(image.id, image.url)}
                 >
                   Eliminar
                 </button>

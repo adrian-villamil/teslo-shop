@@ -1,6 +1,7 @@
 export { authenticate, login } from './auth/login';
 export { changeUserRole } from './user/change-user-role';
 export { createUpdateProduct } from './product/create-update-product';
+export { deleteProductImage } from './product/delete-product-image';
 export { deleteUserAddress } from './address/delete-user-address';
 export { getCategories } from './category/get-categories';
 export { getCountries } from './country/get-countries';
